@@ -65,12 +65,7 @@
             	let data = JSON.parse(xhtp.responseText);
             	// {id:?, name:?, email:?, }
             	document.querySelector('#show>table').appendChild(getRow(data));
-            	// let tr = document.createElement('tr');
-            	// }
-            	// for (let field in data) {
-            	// 	let td = document.createElement('td');
-            	// 	td.appendChild(document.createTextNode(data[field]));
-            	// 	tr.appendChild(td);
+
             }
             xhtp.open('post', '../AddEmpServlet');
             xhtp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

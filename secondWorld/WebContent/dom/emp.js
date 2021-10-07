@@ -7,21 +7,11 @@ xhtp.open('get', '../empJsonServlet.json');
 xhtp.send();
 
 function showEmpList(data) {
-	// let table, tr, td, txt;
 	let table = document.createElement('table');
 	table.setAttribute('border', '1');
 
 	//타이틀 생성
 	table.appendChild(getTitle());
-	// let titles = ['사원번호', '이름', '이메일', '입사일자', '직무', '기능'];
-	// tr = document.createElement('tr');
-	// for (let title of titles) {
-	// 	th = document.createElement('th');
-	// 	txt = document.createTextNode(title);
-	// 	th.appendChild(txt);
-	// 	tr.appendChild(th);
-	// }
-	// table.appendChild(tr);
 	
 	//데이터 생성
 	for(let row of data) {
