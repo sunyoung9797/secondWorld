@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>dom/empList.html</title>
+    <style>
+		* {
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+
+		#add {
+			border: 1px dotted green;
+			padding: 2px;
+			width: 60%;
+			margin-bottom: 10px;
+		}
+
+		.field {
+			padding: 5px;
+		}
+
+		div.btn {
+			margin: 0 35%;
+		}
+	</style>
+</head>
+
+<body>
+    <h3>사원등록</h3>
+    <div id="add">
+		<div class="field">사원번호: <input type="text" id="empId"></div>
+		<div class="field">이&nbsp;&nbsp;&nbsp;름: <input type="text" id="name"></div>
+		<div class="field">이 메 일: <input type="text" id="email"></div>
+		<div class="field">입사일자: <input type="date" id="hire"></div>
+		<div class="field">직&nbsp;&nbsp;&nbsp;무: <input type="text" id="job" value="IT_PROG"></div>
+		<div class="btn">
+			<button id="addBtn">등록</button>
+			<button id="modBtn">변경</button>
+		</div>
+    </div>
+    <div id="show">
+    </div>
+
+    <script src="emp.js"></script>
+    <script>
+        document.getElementById('addBtn').onclick = function () {
+            // 사용자 입력값 가져와서..
+            // ajax() : 서버로 데이터를 전송.
+            // 응답결과: 화면에 정보추가.
+            let eId = document.getElementById('empId').value;
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let hire = document.getElementById('hire').value;
+            let job = document.getElementById('job').value;
+
+            if(eId == "" || name == "" || email == "" || hire == "" || job =="") {
+            	window.alert("필수입력항목 확인!");
+            	return;
+            }
+            
+            let param = 'id=' + eId + '&name=' + name + '&email=' + email + '&hire=' + hire + '&job=' + job;
+            let xhtp = new XMLHttpRequest();
+            xhtp.onload = function () {
+            	let data = JSON.parse(xhtp.responseText);
+            	// {id:?, name:?, email:?, }
+            	document.querySelector('#show>table').appendChild(getRow(data));
+            	// let tr = document.createElement('tr');
+            	// }
+            	// for (let field in data) {
+            	// 	let td = document.createElement('td');
+            	// 	td.appendChild(document.createTextNode(data[field]));
+            	// 	tr.appendChild(td);
+            }
+            xhtp.open('post', '../AddEmpServlet');
+            xhtp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhtp.send(param);
+        }
+    </script>
+</body>
+
+</html>
