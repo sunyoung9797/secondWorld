@@ -6,6 +6,27 @@ import java.util.List;
 
 public class EmpDAO extends DAO {
 	
+	// 데이터가 있거나, 에러 => false, 없는게 확실 => true.
+	public boolean checkId(String id) {
+		connect();
+		String sql = "select * from empl_demo where employee_id = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				return false;
+			} else {
+				return true; // 데이터가 없는게 확실할 경우.
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}		
+		return false;
+	}
+	
 	public List<Employee> getEmpList() {
 		connect();
 		List<Employee> list = new ArrayList<>();
