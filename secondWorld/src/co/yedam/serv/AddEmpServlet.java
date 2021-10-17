@@ -22,17 +22,12 @@ public class AddEmpServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String hire = request.getParameter("hire");
 		String job = request.getParameter("job");
-
+		
 		System.out.println("id: " + id + ",name: " + name + ",email: " + email + ",hire: " + hire + ",job: " + job);
 		
 		Employee emp = new Employee();
@@ -50,6 +45,11 @@ public class AddEmpServlet extends HttpServlet {
 		} else {
 			out.println("{\"msg\":\"실행중 에러가 발생\"}");
 		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }
